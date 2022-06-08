@@ -9,33 +9,36 @@ import UIKit
 
 class LocationInfoVC: UIViewController {
       
-    private var locationObject: (name: String, type: String, dimension: String,
-                         residents: [String], url: String)?
-    init(with locationObject: (name: String, type: String, dimension: String,
-                       residents: [String], url: String)) {
-        super.init(nibName: nil, bundle: nil)
-        self.locationObject = locationObject
-    }
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        locationObject = nil
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+     var locationObject: LocationResultsModel?
+    
+    
+    
+//    (name: String, type: String, dimension: String,
+//                         residents: [String], url: String)?
+//    init(with locationObject: (name: String, type: String, dimension: String,
+//                       residents: [String], url: String)) {
+//        super.init(nibName: nil, bundle: nil)
+//        self.locationObject = locationObject
+//    }
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        locationObject = nil
+//    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     private let locationContainerView = UIView()
-    private let locationTitleLabel = UILabel()
-    private let locationImageView = ImageView()
     private let locationNameLabel = UILabel()
     private let locationTypeLabel = UILabel()
     private let locationDimensionLabel = UILabel()
-    private let locationResidentsLabel = UILabel()
-    private let locationUrlLabel = UILabel()
+//    private let locationResidentsLabel = UILabel()
+//    private let locationUrlLabel = UILabel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupSubviews()
     
 }
@@ -44,10 +47,9 @@ class LocationInfoVC: UIViewController {
 private extension LocationInfoVC {
     
     private func setupSubviews() {
-        view.backgroundColor = .yellow
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 //        navigationController?.navigationBar.title = object?.name ?? ""
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
 //        title = object?.name ?? ""
         
         view.addSubview(locationContainerView)
@@ -59,10 +61,10 @@ private extension LocationInfoVC {
 //        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 //        titleLabel.text = object?.name ?? ""
         
-        locationContainerView.addSubview(locationImageView)
-        locationImageView.layer.cornerRadius = 30
-        locationImageView.clipsToBounds = true
-        locationImageView.translatesAutoresizingMaskIntoConstraints = false
+//        locationContainerView.addSubview(locationImageView)
+//        locationImageView.layer.cornerRadius = 30
+//        locationImageView.clipsToBounds = true
+//        locationImageView.translatesAutoresizingMaskIntoConstraints = false
 //        locationImageView.downloadImageFrom(urlString: object?.image ?? "", imageMode: .scaleAspectFill)
         
         locationContainerView.addSubview(locationNameLabel)
@@ -80,15 +82,15 @@ private extension LocationInfoVC {
         locationDimensionLabel.translatesAutoresizingMaskIntoConstraints = false
         locationDimensionLabel.text = "Dimension:   " + (locationObject?.dimension ?? "")
         
-        locationContainerView.addSubview(locationResidentsLabel)
-        locationResidentsLabel.textColor = .white
-        locationResidentsLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationResidentsLabel.text = "Residents:   " + (locationObject?.residents.reduce("", +) ?? "")
+//        locationContainerView.addSubview(locationResidentsLabel)
+//        locationResidentsLabel.textColor = .white
+//        locationResidentsLabel.translatesAutoresizingMaskIntoConstraints = false
+//        locationResidentsLabel.text = "Residents:   " + (locationObject?.residents.reduce("", +) ?? "")
         
-        locationContainerView.addSubview(locationUrlLabel)
-        locationUrlLabel.textColor = .white
-        locationUrlLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationUrlLabel.text = "Url:   " + (locationObject?.url ?? "")
+//        locationContainerView.addSubview(locationUrlLabel)
+//        locationUrlLabel.textColor = .white
+//        locationUrlLabel.translatesAutoresizingMaskIntoConstraints = false
+//        locationUrlLabel.text = "Url:   " + (locationObject?.url ?? "")
         
         NSLayoutConstraint.activate([
             locationContainerView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -112,13 +114,13 @@ private extension LocationInfoVC {
             locationDimensionLabel.leftAnchor.constraint(equalTo: locationTypeLabel.leftAnchor),
             locationDimensionLabel.rightAnchor.constraint(equalTo: locationTypeLabel.rightAnchor, constant: -5),
             
-            locationResidentsLabel.topAnchor.constraint(equalTo: locationDimensionLabel.bottomAnchor, constant: 5),
-            locationResidentsLabel.leftAnchor.constraint(equalTo: locationDimensionLabel.leftAnchor),
-            locationResidentsLabel.rightAnchor.constraint(equalTo: locationDimensionLabel.rightAnchor, constant: -5),
-            
-            locationUrlLabel.topAnchor.constraint(equalTo: locationResidentsLabel.bottomAnchor, constant: 5),
-            locationUrlLabel.leftAnchor.constraint(equalTo: locationResidentsLabel.leftAnchor),
-            locationUrlLabel.rightAnchor.constraint(equalTo: locationResidentsLabel.rightAnchor, constant: -5)
+//            locationResidentsLabel.topAnchor.constraint(equalTo: locationDimensionLabel.bottomAnchor, constant: 5),
+//            locationResidentsLabel.leftAnchor.constraint(equalTo: locationDimensionLabel.leftAnchor),
+//            locationResidentsLabel.rightAnchor.constraint(equalTo: locationDimensionLabel.rightAnchor, constant: -5),
+//
+//            locationUrlLabel.topAnchor.constraint(equalTo: locationResidentsLabel.bottomAnchor, constant: 5),
+//            locationUrlLabel.leftAnchor.constraint(equalTo: locationResidentsLabel.leftAnchor),
+//            locationUrlLabel.rightAnchor.constraint(equalTo: locationResidentsLabel.rightAnchor, constant: -5)
         ])
     }
 }

@@ -124,10 +124,7 @@ final class SectionsVC: UIViewController {
     
     @objc func tapCharactersButton() {
         
-//        let charvc = CharactersVC()
-//        charvc.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(CharactersVC(), animated: true)
-//        present(charvc, animated: true)
     }
     
     @objc func tapLocationsButton() {

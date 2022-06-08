@@ -79,7 +79,7 @@ private extension LocationVC {
     
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 2 - 1,
-                                               height: UIScreen.main.bounds.width / 2)
+                                               height: 100)
         collectionViewLayout.scrollDirection = .vertical
         collectionViewLayout.minimumLineSpacing = 2
         collectionViewLayout.minimumInteritemSpacing = 1
@@ -91,13 +91,13 @@ private extension LocationVC {
         guard let locationCollectionView = locationCollectionView else { return }
         locationCollectionView.delegate = self
         locationCollectionView.dataSource = self
-        locationCollectionView.isPagingEnabled = true
-        locationCollectionView.register(LocationCell.self, forCellWithReuseIdentifier: "LocationCell")
+//        locationCollectionView.isPagingEnabled = true
+        locationCollectionView.register(LocationCell.self, forCellWithReuseIdentifier: "locationCell")
         view.addSubview(locationCollectionView)
 
         locationCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            locationCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            locationCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             locationCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             locationCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             locationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -114,24 +114,26 @@ extension LocationVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ locationCollectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "LocationCell", for: indexPath)
+        let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "locationCell", for: indexPath)
         (cell as? LocationCell)?.setData(with: locationCollectionData[indexPath.row])
         return cell
     }
     
-    func LocationCollectionView(_ locationCollectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let locationCollectionObject = locationCollectionData[indexPath.row]
+    func collectionView(_ locationCollectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let locationCollectionObject = locationCollectionData[indexPath.row]
         
-        
-        let locationPassedName = locationCollectionObject.name
-        let locationPassedType = locationCollectionObject.type
-        let locationPassedDimension = locationCollectionObject.dimension
-        let locationPassedResidents = locationCollectionObject.residents
-        let locationPassedUrl = locationCollectionObject.url
-        
-        let locationPassedObject: (name: String, type: String, dimension: String, residents: [String], url: String) = (locationPassedName, locationPassedType, locationPassedDimension, locationPassedResidents, locationPassedUrl)
-        let vc = LocationInfoVC(with: locationPassedObject)
+//
+//        let locationPassedName = locationCollectionObject.name
+//        let locationPassedType = locationCollectionObject.type
+//        let locationPassedDimension = locationCollectionObject.dimension
+//        let locationPassedResidents = locationCollectionObject.residents
+//        let locationPassedUrl = locationCollectionObject.url
+//
+//        let locationPassedObject: (name: String, type: String, dimension: String, residents: [String], url: String) = (locationPassedName, locationPassedType, locationPassedDimension, locationPassedResidents, locationPassedUrl)
+        let vc = LocationInfoVC()
+        vc.locationObject = locationCollectionData[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
+
     
         
     }

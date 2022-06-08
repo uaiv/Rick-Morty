@@ -25,14 +25,13 @@ class InfoViewController: UIViewController {
     }
     
     private let containerView = UIView()
-    private let titleLabel = UILabel()
-    private let imageView = ImageView()
+//    private let imageView = ImageView()
     private let nameLabel = UILabel()
-    private let statusLabel = UILabel()
-    private let speciesLabel = UILabel()
-    private let genderLabel = UILabel()
-    private let originLabel = UILabel()
-    private let locationLabel = UILabel()
+//    private let statusLabel = UILabel()
+//    private let speciesLabel = UILabel()
+//    private let genderLabel = UILabel()
+//    private let originLabel = UILabel()
+//    private let locationLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,41 +53,41 @@ private extension InfoViewController {
 //        titleLabel.translatesAutoresizingMaskIntoConstraints = false
 //        titleLabel.text = object?.name ?? ""
         
-        containerView.addSubview(imageView)
-        imageView.layer.cornerRadius = 30
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.downloadImageFrom(urlString: object?.image ?? "", imageMode: .scaleAspectFill)
+//        containerView.addSubview(imageView)
+//        imageView.layer.cornerRadius = 30
+//        imageView.clipsToBounds = true
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.downloadImageFrom(urlString: object?.image ?? "", imageMode: .scaleAspectFill)
         
         containerView.addSubview(nameLabel)
         nameLabel.textColor = .white
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "Name:   " + (object?.name ?? "")
         
-        containerView.addSubview(statusLabel)
-        statusLabel.textColor = .white
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.text = "Status:   " + (object?.status ?? "")
-        
-        containerView.addSubview(speciesLabel)
-        speciesLabel.textColor = .white
-        speciesLabel.translatesAutoresizingMaskIntoConstraints = false
-        speciesLabel.text = "Species:   " + (object?.species ?? "")
-        
-        containerView.addSubview(genderLabel)
-        genderLabel.textColor = .white
-        genderLabel.translatesAutoresizingMaskIntoConstraints = false
-        genderLabel.text = "Gender:   " + (object?.gender ?? "")
-        
-        containerView.addSubview(originLabel)
-        originLabel.textColor = .white
-        originLabel.translatesAutoresizingMaskIntoConstraints = false
-        originLabel.text = "Origin:   " + (object?.origin ?? "")
-        
-        containerView.addSubview(locationLabel)
-        locationLabel.textColor = .white
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationLabel.text = "Location:   " + (object?.location ?? "")
+//        containerView.addSubview(statusLabel)
+//        statusLabel.textColor = .white
+//        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+//        statusLabel.text = "Status:   " + (object?.status ?? "")
+//
+//        containerView.addSubview(speciesLabel)
+//        speciesLabel.textColor = .white
+//        speciesLabel.translatesAutoresizingMaskIntoConstraints = false
+//        speciesLabel.text = "Species:   " + (object?.species ?? "")
+//
+//        containerView.addSubview(genderLabel)
+//        genderLabel.textColor = .white
+//        genderLabel.translatesAutoresizingMaskIntoConstraints = false
+//        genderLabel.text = "Gender:   " + (object?.gender ?? "")
+//
+//        containerView.addSubview(originLabel)
+//        originLabel.textColor = .white
+//        originLabel.translatesAutoresizingMaskIntoConstraints = false
+//        originLabel.text = "Origin:   " + (object?.origin ?? "")
+//
+//        containerView.addSubview(locationLabel)
+//        locationLabel.textColor = .white
+//        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+//        locationLabel.text = "Location:   " + (object?.location ?? "")
         
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -99,35 +98,35 @@ private extension InfoViewController {
 //            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
 //            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 140),
-            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            imageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
-            imageView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
+//            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 140),
+//            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+//            imageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
+//            imageView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
             
-            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
-            nameLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 200),
+            nameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 5),
             nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-            
-            statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
-            statusLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            statusLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-            
-            speciesLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
-            speciesLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            speciesLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-            
-            genderLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor, constant: 5),
-            genderLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            genderLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-            
-            originLabel.topAnchor.constraint(equalTo: genderLabel.bottomAnchor, constant: 5),
-            originLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            originLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-            
-            locationLabel.topAnchor.constraint(equalTo: originLabel.bottomAnchor, constant: 5),
-            locationLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            locationLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
-            locationLabel.heightAnchor.constraint(equalToConstant: 25)
+//
+//            statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
+//            statusLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+//            statusLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+//
+//            speciesLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
+//            speciesLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+//            speciesLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+//
+//            genderLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor, constant: 5),
+//            genderLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+//            genderLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+//
+//            originLabel.topAnchor.constraint(equalTo: genderLabel.bottomAnchor, constant: 5),
+//            originLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+//            originLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+//
+//            locationLabel.topAnchor.constraint(equalTo: originLabel.bottomAnchor, constant: 5),
+//            locationLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+//            locationLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -5),
+//            locationLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
 }
