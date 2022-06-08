@@ -1,5 +1,5 @@
 //
-//  CachedImageView.swift
+//  ImageView.swift
 //  Rick&Morty
 //
 //  Created by Ivan Zakharchenko on 11/05/2022.
