@@ -37,20 +37,16 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
-    }
     
+}
 }
 
 private extension InfoViewController {
     
     private func setupSubviews() {
-        view.backgroundColor = .darkGray
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = object?.name ?? ""
         
         view.addSubview(containerView)
-        containerView.backgroundColor = .darkGray
+        containerView.backgroundColor = .systemPink
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
 //        containerView.addSubview(titleLabel)
@@ -103,7 +99,7 @@ private extension InfoViewController {
 //            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
 //            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 30),
+            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 140),
             imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             imageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
             imageView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8),
@@ -134,5 +130,5 @@ private extension InfoViewController {
             locationLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
-    
 }
+    

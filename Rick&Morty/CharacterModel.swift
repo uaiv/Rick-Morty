@@ -1,8 +1,8 @@
 //
-//  CharacterModel.swift
+//  CharModel.swift
 //  Rick&Morty
 //
-//  Created by Ivan Zakharchenko on 11/05/2022.
+//  Created by Ivan Zakharchenko on 03/06/2022.
 //
 
 import Foundation
