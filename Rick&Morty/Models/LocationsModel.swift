@@ -1,8 +1,8 @@
 //
-//  CharacterModel.swift
+//  LocationsModel.swift
 //  Rick&Morty
 //
-//  Created by Ivan Zakharchenko on 11/05/2022.
+//  Created by Ivan Zakharchenko on 03/06/2022.
 //
 
 import Foundation
@@ -24,15 +24,3 @@ struct LocationResultsModel: Codable {
     let residents: [String]
     let url: String
 }
-
-//struct LocationOriginModel: Codable {
-//    let name: String
-//    let url: String
-//}
-
-//struct LocationLocationMode: Codable {
-//    let name: String
-//    let url: String
-//}
-
-

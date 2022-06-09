@@ -2,7 +2,7 @@
 //  Request.swift
 //  Rick&Morty
 //
-//  Created by Ivan Zakharchenko on 11/05/2022.
+//  Created by Ivan Zakharchenko on 10/05/2022.
 //
 
 import Foundation
@@ -11,7 +11,7 @@ class Request {
     
     static func log(request: URLRequest) {
         print("\n - - - - - - - - - - OUTGOING - - - - - - - - - - \n")
-        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
+        defer { print("\n - - - - - - - - - - END - - - - - - - - - - \n") }
         let urlAsString = request.url?.absoluteString ?? ""
         let urlComponents = URLComponents(string: urlAsString)
         let method = request.httpMethod != nil ? "\(request.httpMethod ?? "")" : ""

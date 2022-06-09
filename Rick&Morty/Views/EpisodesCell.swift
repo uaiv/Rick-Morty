@@ -9,7 +9,7 @@ import UIKit
 
 final class EpisodeCell: UICollectionViewCell {
     
-    private let conteinerView = UIView()
+    private let containerView = UIView()
     private let nameLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -23,34 +23,34 @@ final class EpisodeCell: UICollectionViewCell {
     
     private func setupSubviews() {
         
-        contentView.addSubview(conteinerView)
-        contentView.backgroundColor = .red
-        conteinerView.backgroundColor = .purple
-        conteinerView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(containerView)
+        containerView.backgroundColor = .darkGray
+        containerView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            conteinerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            conteinerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            conteinerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            conteinerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
    
-        conteinerView.addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         nameLabel.textColor = .black
         nameLabel.layer.backgroundColor = .init(red: 1000, green: 1000, blue: 1000, alpha: 1000)
         nameLabel.layer.opacity = 0.75
-        nameLabel.layer.cornerRadius = 30
+        nameLabel.layer.cornerRadius = 10
         nameLabel.font = .systemFont(ofSize: 20, weight: .bold)
         nameLabel.textAlignment = .center
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: conteinerView.bottomAnchor, constant: -50),
-            nameLabel.leftAnchor.constraint(equalTo: conteinerView.leftAnchor),
-            nameLabel.rightAnchor.constraint(equalTo: conteinerView.rightAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: conteinerView.bottomAnchor, constant: 0)
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+            nameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
+        
     }
     
     func setData(with object: EpisodeResultsModel) {

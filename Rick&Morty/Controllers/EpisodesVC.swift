@@ -7,97 +7,117 @@
 
 import UIKit
 
-final class EpisodeVC: UIViewController {
+final class EpisodesVC: UIViewController {
     
     private var episodeObject: EpisodeResponseObject?
     private var episodeCollectionView: UICollectionView?
     private var episodeCollectionData: [EpisodeResultsModel] = []
-    private var episodestr: String?
-   
+    private var str: String?
+    private var searchController = UISearchController()
+    private var pgnr = 1
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
         getData()
-        setupNavbar()
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavBar()
     }
     
 }
 
+private extension EpisodesVC {
 
-private extension EpisodeVC {
-
-    private func setupNavbar() {
+    private func setupNavBar() {
         
         let nextButton = UIBarButtonItem(
-            title: ">",
+            title: "Next",
             style: .plain,
             target: self,
             action: #selector(tapNextButton)
         )
         
         let prevButton = UIBarButtonItem(
-            title: "<",
+            title: "Prev",
             style: .plain,
             target: self,
             action: #selector(tapPrevButton)
-            
         )
         
-        title = "Episodes"
+        title = "Episodes p.\(pgnr)"
         
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.setHidesBackButton(true, animated: false)
         navigationItem.leftBarButtonItem = prevButton
         navigationItem.rightBarButtonItem = nextButton
+        navigationItem.searchController = searchController
+        navigationItem.searchController?.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = false
 
     }
 
     @objc private func tapNextButton() {
         guard let next = episodeObject?.info.next else { return }
-        episodestr = next
+        str = next
+        pgnr += 1
+        title = "Episodes p.\(pgnr)"
         getData()
     }
 
     @objc private func tapPrevButton() {
         
         if let prev = episodeObject?.info.prev {
-        episodestr = prev
+        str = prev
+        pgnr -= 1
+        title = "Episodes p.\(pgnr)"
         getData()
         } else {
-            navigationItem.leftBarButtonItem?.title = "Back"
             navigationController?.popToRootViewController(animated: true)
         }
     }
 }
 
-private extension EpisodeVC {
+extension EpisodesVC: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            getData()
+        } else {
+            episodeCollectionData = episodeCollectionData.filter { $0.name.contains((searchText)) }
+            episodeCollectionView?.reloadData()
+        }
+    }
+    
+}
+
+private extension EpisodesVC {
     
     private func setupSubviews() {
     
         let collectionViewLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 2 - 1,
-                                               height: UIScreen.main.bounds.width / 2)
+        collectionViewLayout.itemSize = CGSize(width: UIScreen.main.bounds.width / 1.05,
+                                               height: 50)
         collectionViewLayout.scrollDirection = .vertical
-        collectionViewLayout.minimumLineSpacing = 2
-        collectionViewLayout.minimumInteritemSpacing = 1
 
         episodeCollectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: collectionViewLayout)
-        episodeCollectionView?.backgroundColor = .cyan
+        episodeCollectionView?.backgroundColor = .darkGray
 
         guard let episodeCollectionView = episodeCollectionView else { return }
+        view.addSubview(episodeCollectionView)
         episodeCollectionView.delegate = self
         episodeCollectionView.dataSource = self
-        episodeCollectionView.isPagingEnabled = true
-        episodeCollectionView.register(EpisodeCell.self, forCellWithReuseIdentifier: "EpisodeCell")
-        view.addSubview(episodeCollectionView)
+        episodeCollectionView.register(EpisodeCell.self, forCellWithReuseIdentifier: "episodeCell")
 
         episodeCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            episodeCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            episodeCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             episodeCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             episodeCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             episodeCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -106,43 +126,30 @@ private extension EpisodeVC {
     
 }
 
-extension EpisodeVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+extension EpisodesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ episodeCollectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return episodeCollectionData.count
     }
     
     func collectionView(_ episodeCollectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = episodeCollectionView.dequeueReusableCell(withReuseIdentifier: "EpisodeCell", for: indexPath)
+        let cell = episodeCollectionView.dequeueReusableCell(withReuseIdentifier: "episodeCell", for: indexPath)
         (cell as? EpisodeCell)?.setData(with: episodeCollectionData[indexPath.row])
         return cell
     }
     
-    func EpisodeCollectionView(_ locationCollectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let episodeCollectionObject = episodeCollectionData[indexPath.row]
-        
-        
-        let episodePassedName = episodeCollectionObject.name
-        let episodePassedAirdate = episodeCollectionObject.air_date
-        let episodePassedEpisode = episodeCollectionObject.episode
-        let episodePassedCharacters = episodeCollectionObject.characters
-        let episodePassedUrl = episodeCollectionObject.url
-        
-        let episodePassedObject: (name: String, air_date: String, episode: String, characters: [String], url: String) = (episodePassedName, episodePassedAirdate, episodePassedEpisode, episodePassedCharacters, episodePassedUrl)
-        let vc = EpisodeInfoVC(with: episodePassedObject)
+    func collectionView(_ episodeCollectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = EpisodeInfoVC()
+        vc.episodeObject = episodeCollectionData[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
-    
-        
     }
     
 }
                                   
-                                   
-private extension EpisodeVC {
+private extension EpisodesVC {
     
     private func getData() {
-        Request.Episode.fire(url: episodestr) { episodeObject in
+        Request.Episode.fire(url: str) { episodeObject in
             self.episodeObject = episodeObject
             DispatchQueue.main.async {
                 self.populateData()
@@ -155,7 +162,5 @@ private extension EpisodeVC {
         episodeCollectionData = episodeResults
         episodeCollectionView?.reloadData()
     }
-    
+
 }
-
-

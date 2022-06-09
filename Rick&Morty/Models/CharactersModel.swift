@@ -1,5 +1,5 @@
 //
-//  CharModel.swift
+//  CharactersModel.swift
 //  Rick&Morty
 //
 //  Created by Ivan Zakharchenko on 03/06/2022.
@@ -7,32 +7,32 @@
 
 import Foundation
 
-struct CharacterResponsObject: Codable {
-    let info: infoModel
-    let results: [ResultsModel]
+struct CharacterResponseObject: Codable {
+    let info: CharacterInfoModel
+    let results: [CharacterResultsModel]
 }
 
-struct infoModel: Codable {
+struct CharacterInfoModel: Codable {
     let next: String?
     let prev: String?
 }
 
-struct ResultsModel: Codable {
+struct CharacterResultsModel: Codable {
     let name: String
     let status: String
     let species: String
     let gender: String
-    let origin: originModel
-    let location: locationMode
+    let origin: OriginModel
+    let location: LocationMode
     let image: String
 }
 
-struct originModel: Codable {
+struct OriginModel: Codable {
     let name: String
     let url: String
 }
 
-struct locationMode: Codable {
+struct LocationMode: Codable {
     let name: String
     let url: String
 }

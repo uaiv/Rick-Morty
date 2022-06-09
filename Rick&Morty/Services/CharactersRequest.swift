@@ -1,22 +1,22 @@
 //
-//  Locations Request.swift
+//  CharactersRequest.swift
 //  Rick&Morty
 //
-//  Created by Ivan Zakharchenko on 03/06/2022.
+//  Created by Ivan Zakharchenko on 11/05/2022.
 //
 
 import Foundation
 
 extension Request {
     
-    final class Location {
+    final class Character {
         
-        class func fire(url: String?, completion: @escaping((LocationResponseObject) -> Void)) {
+        class func fire(url: String?, completion: @escaping((CharacterResponseObject) -> Void)) {
             
-            let urlCharacter = url ?? "https://rickandmortyapi.com/api/location"
+            let urlCharacter = url ?? "https://rickandmortyapi.com/api/character"
             
-            let sessionConfig = URLSessionConfiguration.default
-            let session = URLSession(configuration: sessionConfig,
+            let sessionConfiguration = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfiguration,
                                      delegate: nil,
                                      delegateQueue: nil)
             guard let url = URL(string: urlCharacter) else { return }
@@ -31,9 +31,9 @@ extension Request {
                     let decoder = JSONDecoder()
                     if let data = data {
                         do {
-                            let decodedObject = try decoder.decode(LocationResponseObject.self, from: data)
+                            let decodedObject = try decoder.decode(CharacterResponseObject.self, from: data)
                             completion(decodedObject)
-                            print("DECODED \(LocationResponseObject.self) SUCCESSFULLY")
+                            print("DECODED \(CharacterResultsModel.self) SUCCESSFULLY")
                             print(decodedObject)
                         } catch let DecodingError.dataCorrupted(context) {
                             print(context)
@@ -62,4 +62,3 @@ extension Request {
     }
     
 }
-

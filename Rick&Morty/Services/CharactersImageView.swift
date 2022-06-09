@@ -1,14 +1,14 @@
 //
-//  File.swift
+//  CharactersImageView.swift
 //  Rick&Morty
 //
-//  Created by Ivan Zakharchenko on 07/06/2022.
+//  Created by Ivan Zakharchenko on 11/05/2022.
 //
 
 import UIKit
 
-class LocationImageView: UIImageView {
-
+class ImageView: UIImageView {
+    
     var imageCashe = NSCache<NSString, UIImage>()
     var imageURLString: String?
 
@@ -34,8 +34,7 @@ class LocationImageView: UIImageView {
             } .resume()
         }
     }
-
+    
 
 }
-
 

@@ -1,5 +1,5 @@
 //
-//  CharsColletionView.swift
+//  SectionsVC.swift
 //  Rick&Morty
 //
 //  Created by Ivan Zakharchenko on 31/05/2022.
@@ -9,23 +9,20 @@ import UIKit
 
 final class SectionsVC: UIViewController {
     
-    let charactersButton = UIButton()
-    let locationsButton = UIButton()
-    let episodesButton = UIButton()
-    let charactersButtonTitle = UILabel()
-    let locationsButtonTitle = UILabel()
-    let episodesButtonTitle = UILabel()
+    private let charactersButton = UIButton()
+    private let locationsButton = UIButton()
+    private let episodesButton = UIButton()
+    private let charactersButtonTitle = UILabel()
+    private let locationsButtonTitle = UILabel()
+    private let episodesButtonTitle = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
-    
+        setupNavBar()
     }
     
-    
     func setupSubviews() {
-        
-        view.backgroundColor = .gray
         
         view.addSubview(charactersButton)
         charactersButton.clipsToBounds = true
@@ -123,61 +120,22 @@ final class SectionsVC: UIViewController {
     }
     
     @objc func tapCharactersButton() {
-        
         navigationController?.pushViewController(CharactersVC(), animated: true)
     }
     
     @objc func tapLocationsButton() {
-        navigationController?.pushViewController(LocationVC(), animated: true)
+        navigationController?.pushViewController(LocationsVC(), animated: true)
     }
 
     @objc func tapEpisodesButton() {
-        print("Episodes to show")
-        navigationController?.pushViewController(EpisodeVC(), animated: true)
+        navigationController?.pushViewController(EpisodesVC(), animated: true)
     }
     
     private func setupNavBar() {
-        
-        title = "Chose section"
+        title = "Choose section"
         navigationController?.navigationBar.prefersLargeTitles = false
         
     }
+    
 }
 
-
-
-
-//class SecondController: ViewController {
-//
-//    override func setupSubviews() {
-//        super.setupSubviews()
-//        view.backgroundColor = .gray
-//        titleLabel.text = "Second Controller"
-//        nextButton.setTitle("PRESENT", for: .normal)
-//        title = "Second Controller"
-//    }
-//
-//    override func tapNextButton() {
-//        print("Leaving Second Controller")
-//        let vc = ThirdController()
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//}
-//
-//class ThirdController: ViewController {
-//
-//    override func setupSubviews() {
-//        super.setupSubviews()
-//
-//        view.backgroundColor = .systemGreen
-//        titleLabel.text = "Third Controller"
-//        nextButton.setTitle("Pop to root", for: .normal)
-//        title = "Third Controller"
-//    }
-//
-//    override func tapNextButton() {
-//        print("Leaving Third Controller")
-//        navigationController?.popToRootViewController(animated: true)
-//    }
-//
