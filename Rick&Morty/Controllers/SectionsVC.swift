@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+
 
 final class SectionsVC: UIViewController {
     
@@ -28,9 +30,13 @@ final class SectionsVC: UIViewController {
         charactersButton.clipsToBounds = true
         charactersButton.contentMode = .scaleAspectFill
         charactersButton.setImage(UIImage(named: "3.png"), for: .normal)
-        charactersButton.translatesAutoresizingMaskIntoConstraints = false
         charactersButton.layer.cornerRadius = 25
         charactersButton.addTarget(self, action: #selector(tapCharactersButton), for: .touchUpInside)
+        charactersButton.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(140)
+            maker.trailing.leading.equalToSuperview().inset(20)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.22)
+        }
         
         view.addSubview(charactersButtonTitle)
         charactersButtonTitle.backgroundColor = .white
@@ -38,30 +44,27 @@ final class SectionsVC: UIViewController {
         charactersButtonTitle.clipsToBounds = true
         charactersButtonTitle.contentMode = .scaleAspectFill
         charactersButtonTitle.text = "Characters"
-        charactersButtonTitle.translatesAutoresizingMaskIntoConstraints = false
         charactersButtonTitle.textColor = .black
         charactersButtonTitle.textAlignment = .center
         charactersButtonTitle.font = .boldSystemFont(ofSize: 35.0)
         charactersButtonTitle.layer.cornerRadius = 25
-        
-        NSLayoutConstraint.activate([
-            charactersButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
-            charactersButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            charactersButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            charactersButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.22),
-            charactersButtonTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
-            charactersButtonTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            charactersButtonTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            charactersButtonTitle.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.22)
-        ])
+        charactersButtonTitle.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(140)
+            maker.trailing.leading.equalToSuperview().inset(20)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.22)
+        }
                 
         view.addSubview(locationsButton)
         locationsButton.clipsToBounds = true
         locationsButton.contentMode = .scaleAspectFill
-        locationsButton.translatesAutoresizingMaskIntoConstraints = false
         locationsButton.layer.cornerRadius = 25
         locationsButton.setImage(UIImage(named: "4.png"), for: .normal)
         locationsButton.addTarget(self, action: #selector(tapLocationsButton), for: .touchUpInside)
+        locationsButton.snp.makeConstraints { maker in
+            maker.top.equalTo(charactersButton.snp.bottom).offset(30)
+            maker.trailing.leading.equalToSuperview().inset(20)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.22)
+        }
 
         view.addSubview(locationsButtonTitle)
         locationsButtonTitle.backgroundColor = .white
@@ -69,30 +72,28 @@ final class SectionsVC: UIViewController {
         locationsButtonTitle.clipsToBounds = true
         locationsButtonTitle.contentMode = .scaleAspectFill
         locationsButtonTitle.text = "Locations"
-        locationsButtonTitle.translatesAutoresizingMaskIntoConstraints = false
+
         locationsButtonTitle.textColor = .black
         locationsButtonTitle.textAlignment = .center
         locationsButtonTitle.font = .boldSystemFont(ofSize: 35.0)
         locationsButtonTitle.layer.cornerRadius = 25
-        
-        NSLayoutConstraint.activate([
-            locationsButton.topAnchor.constraint(equalTo: charactersButton.bottomAnchor, constant: 30),
-            locationsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            locationsButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            locationsButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.22),
-            locationsButtonTitle.topAnchor.constraint(equalTo: charactersButtonTitle.bottomAnchor, constant: 30),
-            locationsButtonTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            locationsButtonTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            locationsButtonTitle.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.22)
-        ])
+        locationsButtonTitle.snp.makeConstraints { maker in
+            maker.top.equalTo(charactersButton.snp.bottom).offset(30)
+            maker.trailing.leading.equalToSuperview().inset(20)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.22)
+        }
 
         view.addSubview(episodesButton)
         episodesButton.clipsToBounds = true
         episodesButton.contentMode = .scaleAspectFill
-        episodesButton.translatesAutoresizingMaskIntoConstraints = false
         episodesButton.layer.cornerRadius = 25
         episodesButton.setImage(UIImage(named: "5.png"), for: .normal)
         episodesButton.addTarget(self, action: #selector(tapEpisodesButton), for: .touchUpInside)
+        episodesButton.snp.makeConstraints { maker in
+            maker.top.equalTo(locationsButton.snp.bottom).offset(30)
+            maker.trailing.leading.equalToSuperview().inset(20)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.22)
+        }
 
         view.addSubview(episodesButtonTitle)
         episodesButtonTitle.backgroundColor = .white
@@ -103,19 +104,12 @@ final class SectionsVC: UIViewController {
         episodesButtonTitle.textColor = .black
         episodesButtonTitle.textAlignment = .center
         episodesButtonTitle.font = .boldSystemFont(ofSize: 35.0)
-        episodesButtonTitle.translatesAutoresizingMaskIntoConstraints = false
         episodesButtonTitle.layer.cornerRadius = 25
-        
-        NSLayoutConstraint.activate([
-            episodesButton.topAnchor.constraint(equalTo: locationsButton.bottomAnchor, constant: 30),
-            episodesButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            episodesButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            episodesButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.22),
-            episodesButtonTitle.topAnchor.constraint(equalTo: locationsButtonTitle.bottomAnchor, constant: 30),
-            episodesButtonTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            episodesButtonTitle.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            episodesButtonTitle.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.22)
-        ])
+        episodesButtonTitle.snp.makeConstraints { maker in
+            maker.top.equalTo(locationsButtonTitle.snp.bottom).offset(30)
+            maker.trailing.leading.equalToSuperview().inset(20)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.22)
+        }
 
     }
     

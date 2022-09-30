@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CharactersVC: UIViewController {
     
@@ -14,7 +15,7 @@ final class CharactersVC: UIViewController {
     private var characterCollectionData: [CharacterResultsModel] = []
     private var str: String?
     private var searchController = UISearchController()
-    private var pgnr = 1
+    private var pageNumber = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,7 @@ private extension CharactersVC {
         
         characterCollectionView = UICollectionView(frame: .zero,
                                                    collectionViewLayout: collectionViewLayout)
-        characterCollectionView?.backgroundColor = .darkGray
+        characterCollectionView?.backgroundColor = .gray
         
         guard let characterCollectionView = characterCollectionView else { return }
         view.addSubview(characterCollectionView)
@@ -63,13 +64,11 @@ private extension CharactersVC {
         characterCollectionView.dataSource = self
         characterCollectionView.isPagingEnabled = true
         characterCollectionView.register(CharacterCell.self, forCellWithReuseIdentifier: "characterCell")
-        characterCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            characterCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            characterCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            characterCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            characterCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        characterCollectionView.snp.makeConstraints { maker in
+            maker.top.equalTo(view.safeAreaLayoutGuide)
+            maker.trailing.leading.bottom.equalToSuperview()
+        }
+        
     }
     
 }
@@ -77,7 +76,6 @@ private extension CharactersVC {
 private extension CharactersVC {
     
     private func setupNavBar() {
-
         
         let nextButton = UIBarButtonItem(
             title: "Next",
@@ -94,7 +92,7 @@ private extension CharactersVC {
         )
         
         
-        title = "Characters p.\(pgnr)"
+        title = "Characters p.\(pageNumber)"
         
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
@@ -111,16 +109,16 @@ private extension CharactersVC {
     @objc private func tapNextButton() {
         guard let next = characterObject?.info.next else { return }
         str = next
-        pgnr += 1
-        title = "Characters p.\(pgnr)"
+        pageNumber += 1
+        title = "Characters p.\(pageNumber)"
         getData()
     }
     
     @objc private func tapPrevButton() {
         if let prev = characterObject?.info.prev {
             str = prev
-            pgnr -= 1
-            title = "Characters p.\(pgnr)"
+            pageNumber -= 1
+            title = "Characters p.\(pageNumber)"
             getData()
         } else {
             navigationController?.popToRootViewController(animated: true)

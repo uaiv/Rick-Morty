@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class EpisodesVC: UIViewController {
     
@@ -14,9 +15,8 @@ final class EpisodesVC: UIViewController {
     private var episodeCollectionData: [EpisodeResultsModel] = []
     private var str: String?
     private var searchController = UISearchController()
-    private var pgnr = 1
+    private var pageNumber = 1
     
-   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
@@ -48,7 +48,7 @@ private extension EpisodesVC {
             action: #selector(tapPrevButton)
         )
         
-        title = "Episodes p.\(pgnr)"
+        title = "Episodes p.\(pageNumber)"
         
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
@@ -65,8 +65,8 @@ private extension EpisodesVC {
     @objc private func tapNextButton() {
         guard let next = episodeObject?.info.next else { return }
         str = next
-        pgnr += 1
-        title = "Episodes p.\(pgnr)"
+        pageNumber += 1
+        title = "Episodes p.\(pageNumber)"
         getData()
     }
 
@@ -74,8 +74,8 @@ private extension EpisodesVC {
         
         if let prev = episodeObject?.info.prev {
         str = prev
-        pgnr -= 1
-        title = "Episodes p.\(pgnr)"
+        pageNumber -= 1
+        title = "Episodes p.\(pageNumber)"
         getData()
         } else {
             navigationController?.popToRootViewController(animated: true)
@@ -107,7 +107,7 @@ private extension EpisodesVC {
 
         episodeCollectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: collectionViewLayout)
-        episodeCollectionView?.backgroundColor = .darkGray
+        episodeCollectionView?.backgroundColor = .gray
 
         guard let episodeCollectionView = episodeCollectionView else { return }
         view.addSubview(episodeCollectionView)
@@ -115,13 +115,10 @@ private extension EpisodesVC {
         episodeCollectionView.dataSource = self
         episodeCollectionView.register(EpisodeCell.self, forCellWithReuseIdentifier: "episodeCell")
 
-        episodeCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            episodeCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            episodeCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            episodeCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            episodeCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        episodeCollectionView.snp.makeConstraints{ maker in
+            maker.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            maker.trailing.trailing.bottom.equalToSuperview()
+        }
     }
     
 }

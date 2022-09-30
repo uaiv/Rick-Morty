@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CharacterCell: UICollectionViewCell {
     
@@ -25,21 +26,20 @@ final class CharacterCell: UICollectionViewCell {
     private func setupSubviews() {
         
         contentView.addSubview(containerView)
-        containerView.backgroundColor = .darkGray
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        containerView.backgroundColor = .gray
+        containerView.snp.makeConstraints { maker in
+            maker.top.bottom.leading.trailing.equalToSuperview()
+        }
         
         containerView.addSubview(imageView)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 30
+        imageView.snp.makeConstraints{ maker in
+            maker.top.equalTo(containerView).inset(5)
+            maker.leading.trailing.equalToSuperview().inset(10)
+            maker.height.equalTo(UIScreen.main.bounds.height * 0.2)
+        }
         
         containerView.addSubview(nameLabel)
         nameLabel.textColor = .black
@@ -49,18 +49,10 @@ final class CharacterCell: UICollectionViewCell {
         nameLabel.font = .systemFont(ofSize: 20, weight: .bold)
         nameLabel.textAlignment = .center
         nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
-            imageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10),
-            imageView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
-            imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.2),
-            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -50),
-            nameLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            nameLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0)
-        ])
+        nameLabel.snp.makeConstraints{ maker in
+            maker.top.equalTo(imageView.snp.bottom).inset(50)
+            maker.leading.trailing.bottom.equalTo(imageView)
+        }
         
     }
     

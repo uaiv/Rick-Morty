@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class LocationCell: UICollectionViewCell {
     
@@ -24,15 +25,10 @@ final class LocationCell: UICollectionViewCell {
     private func setupSubviews() {
         
         contentView.addSubview(containerView)
-        containerView.backgroundColor = .darkGray
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        containerView.backgroundColor = .gray
+        containerView.snp.makeConstraints { maker in
+            maker.top.bottom.leading.trailing.equalToSuperview()
+        }
         
         containerView.addSubview(nameLabel)
         nameLabel.textColor = .black
@@ -42,14 +38,9 @@ final class LocationCell: UICollectionViewCell {
         nameLabel.font = .systemFont(ofSize: 20, weight: .bold)
         nameLabel.textAlignment = .center
         nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
-            nameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor),
-            nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-        ])
+        nameLabel.snp.makeConstraints { maker in
+            maker.top.bottom.leading.trailing.equalTo(containerView)
+        }
     }
     
     func setData(with object: LocationResultsModel) {

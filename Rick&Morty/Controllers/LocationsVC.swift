@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class LocationsVC: UIViewController {
     
@@ -14,7 +15,7 @@ final class LocationsVC: UIViewController {
     private var locationCollectionData: [LocationResultsModel] = []
     private var str: String?
     private var searchController = UISearchController()
-    private var pgnr = 1
+    private var pageNumber = 1
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ private extension LocationsVC {
             action: #selector(tapPrevButton)
         )
         
-        title = "Locations p.\(pgnr)"
+        title = "Locations p.\(pageNumber)"
         
         let navBar = UINavigationBar()
         navBar.prefersLargeTitles = false
@@ -60,16 +61,16 @@ private extension LocationsVC {
     @objc private func tapNextButton() {
         guard let next = locationObject?.info.next else { return }
         str = next
-        pgnr += 1
-        title = "Locations p.\(pgnr)"
+        pageNumber += 1
+        title = "Locations p.\(pageNumber)"
         getData()
     }
 
     @objc private func tapPrevButton() {
         if let prev = locationObject?.info.prev {
         str = prev
-        pgnr -= 1
-        title = "Locations p.\(pgnr)"
+            pageNumber -= 1
+        title = "Locations p.\(pageNumber)"
         getData()
         } else {
         navigationController?.popToRootViewController(animated: true)
@@ -102,21 +103,17 @@ private extension LocationsVC {
 
         locationCollectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: collectionViewLayout)
-        locationCollectionView?.backgroundColor = .darkGray
+        locationCollectionView?.backgroundColor = .gray
 
         guard let locationCollectionView = locationCollectionView else { return }
         view.addSubview(locationCollectionView)
         locationCollectionView.delegate = self
         locationCollectionView.dataSource = self
         locationCollectionView.register(LocationCell.self, forCellWithReuseIdentifier: "locationCell")
-        
-        locationCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            locationCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            locationCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            locationCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            locationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        locationCollectionView.snp.makeConstraints{ maker in
+            maker.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            maker.leading.trailing.bottom.equalToSuperview()
+        }
         
     }
     
